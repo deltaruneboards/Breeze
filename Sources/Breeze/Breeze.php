@@ -146,6 +146,21 @@ class Breeze
 				],
 			],
 		];
+		$profileAreas['breeze_wall_activity'] = [
+			'title' => 'Wall activity',
+			'areas' => [
+				'breezeWallActivity' => [
+					'label' => 'Wall activity',
+					'icon' => 'smiley',
+					'function' => fn () => $wallController->dispatch(),
+					'enabled' => $context['user']['is_owner'],
+					'permission' => [
+						'own' => 'is_not_guest',
+						'any' => 'profile_view',
+					],
+				],
+			],
+		];
 	}
 
 	/**
