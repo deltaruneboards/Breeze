@@ -194,6 +194,12 @@ class ProfileService extends BaseService implements ProfileServiceInterface
 			'url' => sprintf(self::SETTINGS_URL, $scriptUrl, $currentUserInfo['id']),
 			'title' => $this->getText('general_my_wall_settings'),
 		];
+		$profile_items[] = [
+			'menu' => 'breeze_wall_activity',
+			'area' => 'breezeWallActivity',
+			'url' => '?action=wall',
+			'title' => 'Wall activity',
+		];
 	}
 
 	public function hookAlertsPref(array &$alertTypes): void
