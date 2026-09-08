@@ -22,7 +22,9 @@ abstract class BaseController implements ControllerInterface
 
 	public function dispatch(): void
 	{
+		/* DUMB change: let guests view profiles
 		$this->isNotGuest($this->getText('error_no_access'));
+		*/
 
 		if (!$this->isEnable(SettingsEntity::MASTER)) {
 			Error::show('no_valid_action');
