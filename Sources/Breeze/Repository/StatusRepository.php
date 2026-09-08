@@ -20,6 +20,7 @@ class StatusRepository extends BaseRepository implements StatusRepositoryInterfa
 	public const string CACHE_BY_PROFILE = 'getByProfile';
 	public const string CACHE_BY_ID = 'getById';
 	public const string CACHE_BY_BUDDY_ACTIVITY = 'getByBuddyActivity';
+	public const string CACHE_ALL = 'getAll';
 
 	public function __construct(
 		ClientInterface $dbClient,
@@ -223,6 +224,75 @@ class StatusRepository extends BaseRepository implements StatusRepositoryInterfa
 		}
 
 		return $result;
+	}
+
+	public function getAll(int $maxIndex = 0, ?string $cursor = null): array
+	{
+		$cacheKey = null;
+		if ($cursor === null) {
+			$cached = $this->getCache(self::CACHE_ALL);
+			if ($cached !== []) {
+				return $cached;
+			}
+		}
+
+		$queryParams = $this->getDefaultQueryParams();
+
+		$cursorClause = '';
+		if ($cursor !== null) {
+			$decodedCursor = $this->decodeCursor($cursor);
+			if ($decodedCursor !== null) {
+				$cursorClause = '
+					WHERE (
+						parent.created_at < {int:cursor_created_at}
+						OR (parent.created_at = {int:cursor_created_at} AND parent.id < {int:cursor_id})
+					)';
+				$queryParams['cursor_created_at'] = $decodedCursor['created_at'];
+				$queryParams['cursor_id'] = $decodedCursor['id'];
+			}
+		}
+
+		$queryParams['limit'] = $maxIndex;
+
+		$request = $this->dbClient->query(
+			'
+			SELECT {raw:columns}
+			FROM {db_prefix}{raw:from}
+			' . $cursorClause . '
+			ORDER BY parent.created_at DESC, parent.id DESC
+			LIMIT {int:limit}',
+			$queryParams
+		);
+
+		$status = [];
+		$statusIds = [];
+		$usersIds = [];
+
+		while ($row = $this->dbClient->fetchAssoc($request)) {
+			$row[StatusEntity::BODY] = Parser::bbc($row[StatusEntity::BODY]);
+			$status[$row[StatusEntity::ID]] = StatusEntity::from($row);
+			$usersIds[] = $row[StatusEntity::WALL_ID];
+			$usersIds[] = $row[StatusEntity::USER_ID];
+			$statusIds[] = $row[StatusEntity::ID];
+		}
+
+		$comments = $this->commentRepository->getByProfile($usersIds);
+
+		$this->dbClient->freeResult($request);
+
+		$result = $this->setComments(
+			$this->setLikes(
+				$this->setUsers($status, $usersIds),
+				LikesEnum::Status
+			),
+			$comments
+		);
+
+		if ($cacheKey !== null) {
+			$this->setCache($cacheKey, $result);
+		}
+
+		return array_values($result);
 	}
 
 	/**

@@ -104,6 +104,8 @@ class DependenciesServiceProvider extends AbstractServiceProvider
 			StatusService::class,
 			ValidateStatus::class,
 			Response::class,
+			// DUMB change
+			PermissionsService::class,
 			SecurityService::class,
 		]],
 		CommentController::class => ['arguments' => [

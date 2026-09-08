@@ -32,6 +32,8 @@ interface StatusRepositoryInterface extends BaseRepositoryInterface
 	 */
 	public function getByBuddyActivity(array $buddyIds = [], int $maxIndex = 0, ?string $cursor = null, array $excludeIds = [], int $viewerId = 0): array;
 
+	public function getAll(int $maxIndex = 0, ?string $cursor = null): array;
+
 	/**
 	 * Invalidate the buddy-activity initial-page cache for a specific viewer.
 	 * Must be called whenever the viewer's (or a buddy's) block list changes.

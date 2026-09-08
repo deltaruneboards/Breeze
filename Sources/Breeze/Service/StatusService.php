@@ -151,12 +151,43 @@ class StatusService extends BaseService implements StatusServiceInterface
 	}
 
 	/**
+	 * Get all statuses.
+	 */
+	public function getAll(?string $cursor = null): array
+	{
+		$currentUserInfo = $this->currentUserInfo();
+		$viewerId = (int) ($currentUserInfo['id'] ?? 0);
+		$currentUserSettings = $this->userRepository->getById($viewerId);
+		$currentUserPagination = $currentUserSettings->getPaginationNumber();
+
+		$allStatuses = $this->statusRepository->getAll($currentUserPagination, $cursor);
+
+		$nextCursor = null;
+		$hasMore = false;
+		if ($allStatuses !== []) {
+			$nextCursor = $this->statusRepository->getNextCursor($allStatuses);
+			$hasMore = count($allStatuses) === $currentUserPagination;
+		}
+
+		return [
+			'data' => $allStatuses,
+			'permissions' => $this->permissionsService->permissions(0, $viewerId),
+			'pagination' => [
+				'nextCursor' => $hasMore ? $nextCursor : null,
+				'hasMore' => $hasMore,
+			],
+			'total' => $this->statusRepository->getCount([]),
+		];
+	}
+
+	/**
 	 * @throws DataNotFoundException
 	 */
 	public function getById(int $statusId): array
 	{
 		$currentUserInfo = $this->currentUserInfo();
 		$viewerId = (int) ($currentUserInfo['id'] ?? 0);
+
 		$statusEntity = $this->statusRepository->getById($statusId);
 		$wallId = $statusEntity->getWallId();
 
