@@ -27,6 +27,8 @@ interface StatusServiceInterface
 	 */
 	public function getByBuddies(?string $cursor = null): array;
 
+	public function getAll(?string $cursor = null): array;
+
 	/**
 	 * @throws EmptyDataException
 	 * @throws DataNotFoundException

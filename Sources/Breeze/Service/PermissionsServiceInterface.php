@@ -23,4 +23,6 @@ interface PermissionsServiceInterface
 	 * custom VIEW_GENERAL_WALL permission, which only gates the feed.
 	 */
 	public function canViewProfileWall(int $viewerId): bool;
+
+	public function canViewAllStatuses(): bool;
 }

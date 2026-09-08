@@ -6,6 +6,7 @@ namespace Breeze\Controller\API;
 
 use Breeze\Entity\StatusEntity;
 use Breeze\Repository\InvalidStatusException;
+use Breeze\Service\PermissionsServiceInterface;
 use Breeze\Service\SecurityServiceInterface;
 use Breeze\Service\StatusServiceInterface;
 use Breeze\Util\ResponseInterface;
@@ -36,6 +37,8 @@ class StatusController extends ApiBaseController
 		protected StatusServiceInterface $statusService,
 		protected ValidateActionsInterface $validateActions,
 		protected ResponseInterface $response,
+		// DUMB change
+		protected PermissionsServiceInterface $permissionsService,
 		protected SecurityServiceInterface $security
 	) {
 		parent::__construct($validateActions, $response, $security);
@@ -67,9 +70,16 @@ class StatusController extends ApiBaseController
 	public function wall(): void
 	{
 		try {
+			// DUMB change: display all status to admins
+			if ($this->permissionsService->canViewAllStatuses()) {
+				$buddiesStatus = $this->statusService->getAll(
+					$this->getRequest('cursor', null)
+				);
+			} else {
 			$buddiesStatus = $this->statusService->getByBuddies(
 				$this->getRequest('cursor', null)
 			);
+			}
 
 			$this->response->success('', $buddiesStatus);
 		} catch (Exception $exception) {

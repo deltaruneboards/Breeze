@@ -108,6 +108,11 @@ class PermissionsService implements PermissionsServiceInterface
 		return $this->isAllowedTo(PermissionsEnum::PROFILE_VIEW);
 	}
 
+	public function canViewAllStatuses(): bool
+	{
+		return $this->isAllowedTo(PermissionsEnum::DELETE_PROFILE_COMMENTS);
+	}
+
 	protected function handleDelete(string $type, bool $isPosterOwner, $isProfileOwner) : bool
 	{
 		// It all starts with an empty vessel...
