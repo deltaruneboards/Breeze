@@ -67,6 +67,10 @@ class WallController extends BaseController
 
 		$this->profileService->setEditor();
 
+		// DUMB change: display the summary above wall
+		require_once __DIR__ . '/../../../Profile-View.php';
+		summary($profileId);
+
 		$this->render(__FUNCTION__, [
 			'profileSettings' => $profileSettings,
 			'buddiesData' => $buddiesData,

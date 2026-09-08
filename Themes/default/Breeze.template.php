@@ -25,6 +25,10 @@ function template_profile(): void
 	$aboutMe = $profileSettings[UserSettingsEntity::ABOUT_ME] ?? '';
 	$enableBuddiesTab = $profileSettings[UserSettingsEntity::ENABLE_BUDDIES_TAB] ?? 0;
 
+	// DUMB change: display the summary above wall
+	require_once __DIR__ . '/Profile.template.php';
+	template_summary();
+
 	echo '
 	<hr />
 	<p class="clear" />

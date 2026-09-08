@@ -101,8 +101,11 @@ class Breeze
 			$wallController = $this->container->get(WallController::class);
 
 			$profileAreas['info']['areas']['summary'] = [
+				/* DUMB change: don't change the dropdown so significantly
 				'label' => $this->getText('tabs_wall'),
 				'icon' => 'smiley',
+				*/
+				...$profileAreas['info']['areas']['summary'],
 				'function' => fn () => $wallController->dispatch(),
 				'permission' => [
 					'own' => 'is_not_guest',
@@ -110,6 +113,8 @@ class Breeze
 				],
 			];
 
+			/* DUMB change: we changed the summary to be displayed above the wall,
+			   so we don't need this anymore
 			$profileAreas['info']['areas'][ProfileService::LEGACY_AREA] = [
 				'label' => $this->getText('general_summary'),
 				'icon' => 'members',
@@ -120,6 +125,7 @@ class Breeze
 					'any' => 'profile_view',
 				],
 			];
+			*/
 		}
 
 		/** @var UserSettingsController $settingsController */
