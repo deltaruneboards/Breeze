@@ -20,7 +20,10 @@ class UserSettingsEntity extends Entity implements EntityInterface
 	public const string USER_ID = 'userId';
 	public const string CONFIRM_POST = 'confirmPost';
 
+	/* DUMB change: we want walls enabled by default for all users
 	protected int $wall = 0;
+	*/
+	protected int $wall = 1;
 
 	protected int $generalWall = 0;
 
@@ -58,7 +61,10 @@ class UserSettingsEntity extends Entity implements EntityInterface
 	public static function getDefaultValues(): array
 	{
 		return [
+			/* DUMB change: we want walls enabled by default for all users
 			self::WALL => 0,
+			*/
+			self::WALL => 1,
 			self::GENERAL_WALL => 0,
 			self::PAGINATION_NUM => 5,
 			self::ENABLE_BUDDIES_TAB => 0,
