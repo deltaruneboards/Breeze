@@ -43,6 +43,14 @@ const UserInfo: React.FunctionComponent<UserInfoProps> = (
 	return (
 		<>
 			<ul className="user_info">
+				<li className="avatar">
+					<button type="button" onClick={handleOpen} className="pointer_cursor">
+						<Avatar
+							href={props.userData.avatar.url}
+							userName={props.userData.username}
+						/>
+					</button>
+				</li>
 				<li>
 					<button
 						type="button"
@@ -53,14 +61,6 @@ const UserInfo: React.FunctionComponent<UserInfoProps> = (
 						{onlineIndicator} {props.userData.name}
 					</button>
           &nbsp; {buddyButton}
-				</li>
-				<li className="avatar">
-					<button type="button" onClick={handleOpen} className="pointer_cursor">
-						<Avatar
-							href={props.userData.avatar.url}
-							userName={props.userData.username}
-						/>
-					</button>
 				</li>
 				<li
 					className="icons"
