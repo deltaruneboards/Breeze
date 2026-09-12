@@ -22,11 +22,11 @@ const UserInfo: React.FunctionComponent<UserInfoProps> = (
 
 	const onlineIndicator = props.userData.online?.is_online ? (
 		<span className="mini_profile_online" title={props.userData.online.text}>
-			&#x1F7E2;
+			<span className="on" title="Online" />
 		</span>
 	) : (
 		<span className="mini_profile_offline" title={props.userData.online?.text}>
-			&#x26AB;
+			<span className="off" title="Offline" />
 		</span>
 	);
 

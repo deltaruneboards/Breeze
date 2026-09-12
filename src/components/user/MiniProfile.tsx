@@ -13,11 +13,11 @@ const MiniProfile: React.FunctionComponent<MiniProfileProps> = (
 
 	const onlineIndicator = userData.online?.is_online ? (
 		<span className="mini_profile_online" title={userData.online.text}>
-			&#x1F7E2;
+			<span className="on" title="Online" />
 		</span>
 	) : (
 		<span className="mini_profile_offline" title={userData.online?.text}>
-			&#x26AB;
+			<span className="off" title="Offline" />
 		</span>
 	);
 
