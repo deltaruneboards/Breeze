@@ -40,12 +40,6 @@ function WallFeed(props: WallProps): React.JSX.Element {
 	const ref = React.useRef<null | HTMLInputElement>(null);
 
 	useEffect(() => {
-		if (ref.current) {
-			ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
-		}
-	}, []);
-
-	useEffect(() => {
 		getStatus(props.wallType, 0, null)
 			.then((statusListResponse: IFetchStatus | undefined) => {
 				if (!statusListResponse) {
