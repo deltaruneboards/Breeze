@@ -10,13 +10,24 @@ import React from "react";
 import { commentActionRegistry, statusActionRegistry } from "./components/actions/actionRegistry";
 import CommentDeleteAction from "./components/actions/comment/DeleteAction";
 import CommentLikeAction from "./components/actions/comment/LikeAction";
+import CommentReportAction from "./components/actions/comment/ReportAction";
 import StatusCommentAction from "./components/actions/status/CommentAction";
 import StatusDeleteAction from "./components/actions/status/DeleteAction";
 import StatusLikeAction from "./components/actions/status/LikeAction";
+import StatusReportAction from "./components/actions/status/ReportAction";
 
 // Register default actions before the React tree mounts
-statusActionRegistry.register(StatusLikeAction, StatusCommentAction, StatusDeleteAction);
-commentActionRegistry.register(CommentLikeAction, CommentDeleteAction);
+statusActionRegistry.register(
+	StatusLikeAction,
+	StatusCommentAction,
+	StatusReportAction,
+	StatusDeleteAction,
+);
+commentActionRegistry.register(
+	CommentLikeAction,
+	CommentReportAction,
+	CommentDeleteAction,
+);
 
 const rootElement =
 	document.getElementById("root") ?? document.createElement("div");

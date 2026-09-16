@@ -3,6 +3,7 @@ declare module "breezeTypesPermissions" {
 		edit: boolean;
 		delete: boolean;
 		post: boolean;
+		report: boolean;
 	};
 
 	type ForumPermissionsType = {

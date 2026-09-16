@@ -80,6 +80,8 @@ class PermissionsService implements PermissionsServiceInterface
 		$perm[PermissionsEnum::TYPE_COMMENTS]['post'] = !$isBanned && ($isPosterOwner || $this->isAllowedTo(PermissionsEnum::POST_COMMENTS));
 		$perm[PermissionsEnum::TYPE_STATUS]['delete'] = $this->handleDelete(PermissionsEnum::TYPE_STATUS, $isPosterOwner, $isProfileOwner);
 		$perm[PermissionsEnum::TYPE_COMMENTS]['delete'] =  $this->handleDelete(PermissionsEnum::TYPE_COMMENTS, $isPosterOwner, $isProfileOwner);
+		$perm[PermissionsEnum::TYPE_STATUS]['report'] = !$isBanned;
+		$perm[PermissionsEnum::TYPE_COMMENTS]['report'] = !$isBanned;
 
 		return $perm;
 	}

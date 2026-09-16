@@ -5,11 +5,13 @@ const PermissionsDefault: PermissionsContextType = {
 		edit: false,
 		delete: false,
 		post: false,
+		report: false,
 	},
 	Comments: {
 		edit: false,
 		delete: false,
 		post: false,
+		report: false,
 	},
 	Forum: {
 		likesLike: false,
