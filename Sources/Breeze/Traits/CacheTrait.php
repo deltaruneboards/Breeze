@@ -11,12 +11,15 @@ trait CacheTrait
 {
 	public function getCache(string $key, int $timeToLive = 360): mixed
 	{
+		/* DUMB change: seems to be causing trouble due to improperly handling deserialization
 		$data = cache_get_data(
 			$this->buildKey($key),
 			$timeToLive
 		);
 
 		return $data ?? [];
+		*/
+		return [];
 	}
 
 	public function setCache(string $key, array | EntityInterface | int | null $data, int $timeToLive = 360): void
