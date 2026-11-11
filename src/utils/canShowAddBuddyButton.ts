@@ -19,6 +19,8 @@ const canShowAddBuddyButton = (
 	userData: UserDataType,
 	currentUserId: number,
 ): boolean => {
+	return false;
+	/* DUMB change: This button is easy to misclick and confusing
 	// Check 1: Don't show the button on your own profile.
 	if (userData.id === currentUserId) {
 		return false;
@@ -31,6 +33,7 @@ const canShowAddBuddyButton = (
 	}
 
 	return true;
+	*/
 };
 
 export default canShowAddBuddyButton;
