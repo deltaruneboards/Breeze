@@ -26,7 +26,7 @@ function Comment(props: CommentProps): React.ReactElement {
 			<div className="avatar_compact">
 				<Avatar
 					href={props.comment.userData.avatar.url}
-					userName={props.comment.userData.username}
+					userName={props.comment.userData.name}
 				/>
 				<span
 					dangerouslySetInnerHTML={{

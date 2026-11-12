@@ -20,7 +20,7 @@ export const LikeInfo: React.FunctionComponent<LikeProps> = (
 				<li key={like.userData.id}>
 					<Avatar
 						href={like.userData.avatar.url}
-						userName={like.userData.username}
+						userName={like.userData.name}
 					/>
 					<span className="like_profile">
 						<span

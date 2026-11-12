@@ -40,7 +40,7 @@ const MiniProfile: React.FunctionComponent<MiniProfileProps> = (
 							<a href={SmfVars.script_url + userData.legacy_url}>
 								<Avatar
 									href={userData.avatar.url}
-									userName={userData.username}
+									userName={userData.name}
 									customClassName="mini_profile_avatar"
 								/>
 							</a>
@@ -48,8 +48,7 @@ const MiniProfile: React.FunctionComponent<MiniProfileProps> = (
 						<li>
 							<a
 								href={SmfVars.script_url + userData.legacy_url}
-								className="pointer_cursor"
-								style={{ color: props.userData.group_color }}
+								className={`pointer_cursor group-${props.userData.group_id}`}
 							>
 								{onlineIndicator} {props.userData.name}
 							</a>
@@ -92,14 +91,12 @@ const MiniProfile: React.FunctionComponent<MiniProfileProps> = (
 		</div>
 	);
 
-	const headerContent = userData.name || userData.username;
-
 	return (
 		<Modal
 			onClose={props.onClose}
 			show={props.show}
 			content={{
-				header: headerContent,
+				header: userData.name,
 				body: profileBody,
 			}}
 		/>

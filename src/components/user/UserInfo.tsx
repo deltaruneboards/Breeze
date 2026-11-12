@@ -47,7 +47,7 @@ const UserInfo: React.FunctionComponent<UserInfoProps> = (
 					<button type="button" onClick={handleOpen} className="pointer_cursor">
 						<Avatar
 							href={props.userData.avatar.url}
-							userName={props.userData.username}
+							userName={props.userData.name}
 						/>
 					</button>
 				</li>
@@ -56,9 +56,10 @@ const UserInfo: React.FunctionComponent<UserInfoProps> = (
 						type="button"
 						onClick={handleOpen}
 						className="pointer_cursor"
-						style={{ color: props.userData.group_color }}
 					>
-						{onlineIndicator} {props.userData.name}
+						{onlineIndicator} <span
+							className={`group-${props.userData.group_id}`}
+						>{props.userData.name}</span>
 					</button>
           &nbsp; {buddyButton}
 				</li>
